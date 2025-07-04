@@ -1,0 +1,122 @@
+[
+  {
+    "id": "01",
+    "question": "Which keyword is used to inherit a class in Java?",
+    "options": ["implement", "inherits", "override", "extends"],
+    "answer": "extends"
+  },
+  {
+    "id": "02",
+    "question": "Which SQL command is used to remove a record?",
+    "options": ["REMOVE", "ERASE", "DELETE", "DROP"],
+    "answer": "DELETE"
+  },
+  {
+    "id": "03",
+    "question": "Which OSI layer deals with end-to-end communication?",
+    "options": ["Transport", "Data Link", "Session", "Presentation"],
+    "answer": "Transport"
+  },
+  {
+    "id": "04",
+    "question": "Which cloud model offers infrastructure over the internet?",
+    "options": ["PaaS", "IaaS", "SaaS", "XaaS"],
+    "answer": "IaaS"
+  },
+  {
+    "id": "05",
+    "question": "Which HTML tag is used to create a table row?",
+    "options": ["<tr>", "<td>", "<table>", "<row>"],
+    "answer": "<tr>"
+  },
+  {
+    "id": "06",
+    "question": "What does the 'font-weight' property in CSS control?",
+    "options": ["Font color", "Font size", "Font boldness", "Font alignment"],
+    "answer": "Font boldness"
+  },
+  {
+    "id": "07",
+    "question": "In VS Code, what extension helps with JavaScript IntelliSense?",
+    "options": ["Java Helper", "JS Toolkit", "ESLint", "JavaScript (ES6) code snippets"],
+    "answer": "JavaScript (ES6) code snippets"
+  },
+  {
+    "id": "08",
+    "question": "Which access modifier makes variables accessible within the same class only in Java?",
+    "options": ["private", "public", "protected", "static"],
+    "answer": "private"
+  },
+  {
+    "id": "09",
+    "question": "What is the purpose of GROUP BY in SQL?",
+    "options": ["Sorts data", "Groups rows with same values", "Deletes duplicates", "Creates joins"],
+    "answer": "Groups rows with same values"
+  },
+  {
+    "id": "10",
+    "question": "The OSI Presentation layer is responsible for?",
+    "options": ["Routing", "Session control", "Data translation", "Hardware communication"],
+    "answer": "Data translation"
+  },
+  {
+    "id": "11",
+    "question": "Which cloud platform is developed by Microsoft?",
+    "options": [ "Azure", "AWS", "Google Cloud", "DigitalOcean"],
+    "answer": "Azure"
+  },
+  {
+    "id": "12",
+    "question": "What does <br> tag do in HTML?",
+    "options": ["Bold text", "Create border", "Break table cell", "Insert a line break"],
+    "answer": "Insert a line break"
+  },
+  {
+    "id": "13",
+    "question": "Which property in CSS is used for spacing inside an element?",
+    "options": ["margin", "padding", "spacing", "border-spacing"],
+    "answer": "padding"
+  },
+  {
+    "id": "14",
+    "question": "What command runs a React app in development mode?",
+    "options": ["npm run", "npm start", "npm build", "node server.js"],
+    "answer": "npm start"
+  },
+  {
+    "id": "15",
+    "question": "Which of these is not a Java primitive type?",
+    "options": ["int", "boolean", "char", "string"],
+    "answer": "string"
+  },
+  {
+    "id": "16",
+    "question": "Which SQL clause sorts the result set?",
+    "options": ["SORT BY", "ORDER BY", "GROUP BY", "FILTER BY"],
+    "answer": "ORDER BY"
+  },
+  {
+    "id": "17",
+    "question": "Which OSI layer handles encryption and decryption?",
+    "options": ["Application", "Session", "Presentation", "Transport"],
+    "answer": "Presentation"
+  },
+  {
+    "id": "18",
+    "question": "What does CSS stand for?",
+    "options": ["Cascading Style Sheets", "Computer Style Sheets", "Creative Style System", "Colorful Style Syntax"],
+    "answer": "Cascading Style Sheets"
+  },
+  {
+    "id": "19",
+    "question": "What shortcut opens a new terminal in VS Code?",
+    "options": ["Ctrl + T", "Ctrl + `", "Ctrl + N", "Alt + Shift + T"],
+    "answer": "Ctrl + `"
+  },
+  {
+    "id": "20",
+    "question": "Which HTML tag is used for creating a numbered list?",
+    "options": ["<ul>", "<ol>", "<li>", "<list>"],
+    "answer": "<ol>"
+  }
+]
