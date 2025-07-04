@@ -1,42 +1,41 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 
+// Create Context
 const DataContext = createContext({});
 
-export const DataProvider = ({children}) => {
-      // All Quizs, Current Question, Index of Current Question, Answer, Selected Answer, Total Marks
+export const DataProvider = ({ children }) => {
   const [quizs, setQuizs] = useState([]);
-  const [question, setQuesion] = useState({});
+  const [question, setQuestion] = useState({});
   const [questionIndex, setQuestionIndex] = useState(0);
   const [correctAnswer, setCorrectAnswer] = useState('');
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [marks, setMarks] = useState(0);
 
-  // Display Controlling States
+  const [score, setScore] = useState({ correct: 0, incorrect: 0, skipped: 0 });
+
   const [showStart, setShowStart] = useState(true);
   const [showQuiz, setShowQuiz] = useState(false);
   const [showResult, setShowResult] = useState(false);
 
-  // Load JSON Data
+  // Load quiz.json only once on initial mount
   useEffect(() => {
     fetch('quiz.json')
       .then(res => res.json())
-      .then(data => setQuizs(data))
+      .then(data => setQuizs(data));
   }, []);
 
-  // Set a Single Question
+  // Update question whenever index changes
   useEffect(() => {
     if (quizs.length > questionIndex) {
-      setQuesion(quizs[questionIndex]);
+      setQuestion(quizs[questionIndex]);
     }
-  }, [quizs, questionIndex])
+  }, [quizs, questionIndex]);
 
-  // Start Quiz
   const startQuiz = () => {
     setShowStart(false);
     setShowQuiz(true);
-  }
+  };
 
-  // Check Answer
   const checkAnswer = (event, selected) => {
     if (!selectedAnswer) {
       setCorrectAnswer(question.answer);
@@ -44,55 +43,96 @@ export const DataProvider = ({children}) => {
 
       if (selected === question.answer) {
         event.target.classList.add('bg-success');
-        setMarks(marks + 5);
+        setMarks(prev => prev + 5);
+        setScore(prev => ({ ...prev, correct: prev.correct + 1 }));
       } else {
         event.target.classList.add('bg-danger');
+        setScore(prev => ({ ...prev, incorrect: prev.incorrect + 1 }));
       }
     }
-  }
+  };
 
-  // Next Quesion
+  const skipQuestion = () => {
+    setScore(prev => ({ ...prev, skipped: prev.skipped + 1 }));
+    nextQuestion();
+  };
+
   const nextQuestion = () => {
     setCorrectAnswer('');
     setSelectedAnswer('');
-    const wrongBtn = document.querySelector('button.bg-danger');
-    wrongBtn?.classList.remove('bg-danger');
-    const rightBtn = document.querySelector('button.bg-success');
-    rightBtn?.classList.remove('bg-success');
-    setQuestionIndex(questionIndex + 1);
-  }
 
-  // Show Result
+    // Cleanup visual button states
+    document.querySelector('button.bg-danger')?.classList.remove('bg-danger');
+    document.querySelector('button.bg-success')?.classList.remove('bg-success');
+
+    setQuestionIndex(prev => prev + 1);
+  };
+
   const showTheResult = () => {
-    setShowResult(true);
-    setShowStart(false);
     setShowQuiz(false);
-  }
-
-  // Start Over
-  const startOver = () => {
     setShowStart(false);
-    setShowResult(false);
-    setShowQuiz(true);
+    setShowResult(true);
+  };
+
+  const startOver = () => {
     setCorrectAnswer('');
     setSelectedAnswer('');
     setQuestionIndex(0);
     setMarks(0);
-    const wrongBtn = document.querySelector('button.bg-danger');
-    wrongBtn?.classList.remove('bg-danger');
-    const rightBtn = document.querySelector('button.bg-success');
-    rightBtn?.classList.remove('bg-success');
+    setScore({ correct: 0, incorrect: 0, skipped: 0 });
+    setShowResult(false);
+    setShowStart(false);
+    setShowQuiz(true);
+
+    // Cleanup visuals
+    document.querySelector('button.bg-danger')?.classList.remove('bg-danger');
+    document.querySelector('button.bg-success')?.classList.remove('bg-success');
+  };
+
+  // ✅ Replace Flashcards
+  const replaceFlashcards = (newData) => {
+    setQuizs(newData);
+    setQuestionIndex(0);
+  };
+
+  // ✅ Merge Flashcards
+  const mergeFlashcards = (newData) => {
+    setQuizs(prev => [...prev, ...newData]);
+  };
+
+  return (
+    <DataContext.Provider value={{
+      startQuiz,
+      showStart,
+      showQuiz,
+      question,
+      quizs,
+      checkAnswer,
+      correctAnswer,
+      selectedAnswer,
+      questionIndex,
+      nextQuestion,
+      showTheResult,
+      showResult,
+      marks,
+      startOver,
+      skipQuestion,
+      score,
+      replaceFlashcards,
+      mergeFlashcards
+    }}>
+      {children}
+    </DataContext.Provider>
+  );
+};
+
+// Custom hook for using context
+export const useDataContext = () => {
+  const context = useContext(DataContext);
+  if (!context) {
+    throw new Error("useDataContext must be used within a DataProvider");
   }
-    return (
-        <DataContext.Provider value={{
-            startQuiz,showStart,showQuiz,question,quizs,checkAnswer,correctAnswer,
-            selectedAnswer,questionIndex,nextQuestion,showTheResult,showResult,marks,
-            startOver
-        }} >
-            {children}
-        </DataContext.Provider>
-    );
-}
+  return context;
+};
 
 export default DataContext;
-

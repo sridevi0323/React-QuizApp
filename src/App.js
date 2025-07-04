@@ -2,20 +2,24 @@ import React from 'react';
 import Start from './components/Start';
 import Quiz from './components/Quiz';
 import Result from './components/Result';
-import { DataProvider } from './context/dataContext';
+import { DataProvider, useDataContext } from './context/dataContext';
+
+const AppContent = () => {
+  const { showStart, showResult } = useDataContext();
+
+  return (
+    <>
+      {showStart && <Start />}
+      <Quiz />
+      {showResult && <Result />}
+    </>
+  );
+};
 
 function App() {
   return (
     <DataProvider>
-      {/* Welcome Page */}
-      <Start/>
-
-      {/* Quiz Page */}
-      <Quiz/>
-
-      {/* Result Page */}
-      <Result/>
-
+      <AppContent />
     </DataProvider>
   );
 }
